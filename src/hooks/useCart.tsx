@@ -17,8 +17,6 @@ export  function useCart() {
   }, [cart]);
     
 
-  console.log("cart", cart);
-
   return {
     cart,
     addToCart,
