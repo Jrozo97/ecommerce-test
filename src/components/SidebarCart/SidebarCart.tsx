@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { ProductType } from "../../types/product";
-import { PRODUCTS } from '../../services/dataMock';
+
 
 const SidebarCart = ({
   openSidebar,
@@ -11,7 +11,7 @@ const SidebarCart = ({
   cart: ProductType[];
   removeFromCart: (id: number) => void;
 }) => {
-    const [quantity, setQuantity] = useState<{ [key: number]: number, PRODUCTS: ProductType[] }>({ PRODUCTS });
+    const [quantity, setQuantity] = useState<{ [key: number]: number }>({  });
 
   return (
     <div className="fixed top-0 right-0 w-2/5 h-full bg-white shadow-lg p-4 z-50">
@@ -45,7 +45,7 @@ const SidebarCart = ({
 
               <div className=" flex items-center mr-6">
                 <button className="px-2 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition" onClick={() => setQuantity({ ...quantity, [item.id]: (quantity[item.id] || 0) - 1 })}>-</button>
-                <span className="mx-2">{quantity[item.id] || 0}</span>
+                <span className="mx-2">{quantity[item.id] || 1}</span>
                 <button className="px-2 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition" onClick={() => setQuantity({ ...quantity, [item.id]: (quantity[item.id] || 0) + 1 })}>+</button>
               </div>
               <button
@@ -61,8 +61,8 @@ const SidebarCart = ({
       )}
 
       <div className="mt-4">
-        <p>Items in cart: {cart.reduce((acc, item) => acc + (quantity[item.id] || 0), 0)}</p>
-        <p>Total: {cart.reduce((acc, item) => acc + item.price * (quantity[item.id] || 0), 0)}</p>
+        <p>Items in cart: {cart.reduce((acc, item) => acc + (quantity[item.id] || 1), 0)}</p>
+        <p>Total: {cart.reduce((acc, item) => acc + item.price * (quantity[item.id] || 1), 0)}</p>
       </div>    
     </div>
   );
